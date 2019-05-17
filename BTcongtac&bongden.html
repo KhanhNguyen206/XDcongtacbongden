@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XDlopdenpin</title>
+</head>
+<body>
+<input type="button" onclick= "power()" value="On/Off">
+<p id="hienthi"></p>
+<p id="hienthi1"></p>
+<script>
+    let ElectricLamp= function (status) {
+        this.status=status;
+        this.getStatus=function () {
+            return this.status;
+        };
+        this.turnOn=function () {
+            if(!this.status){
+                this.status = true;
+            }
+        };
+        this.turnOff=function () {
+            if(this.status){
+                this.status = false;
+            }
+        }
+    };
+
+    let SwitchButton= function (status) {
+
+        this.status=status;
+        this.getStatus=function () {
+            return this.status;
+        };
+        this.turnOn=function () {
+            if(!this.status) this.status= true;
+        };
+        this.turnOff=function () {
+            if (this.status) this.status=false;
+        };
+        this.SwitchOn=function (ElectricLamp) {
+            this.turnOn();
+            ElectricLamp.turnOn();
+        };
+        this.SwitchOff=function (ElectricLamp) {
+            this.turnOff();
+            ElectricLamp.turnOff();
+        };
+        this.connectToLamp= function (ElectricLamp) {
+            if(this.status){
+                this.SwitchOff(ElectricLamp);
+            }
+            else if (!this.status){
+                this.SwitchOn(ElectricLamp);
+            }
+        }
+    };
+
+    let electricLamp= new ElectricLamp(true);
+    let switchButton= new SwitchButton(true);
+
+    function power() {
+        switchButton.connectToLamp(electricLamp);
+        document.getElementById("hienthi").innerHTML = (switchButton.getStatus()+ "<br>");
+        document.getElementById("hienthi1").innerHTML = (electricLamp.getStatus()+ "<br>");
+    }
+</script>
+</body>
+</html>
